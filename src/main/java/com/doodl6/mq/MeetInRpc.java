@@ -177,6 +177,7 @@ public class MeetInRpc {
         @Override
         protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
             while (in.isReadable(4)) {
+                // 记录读取下标，如果后面读取时发现消息长度不够，需要将读取下标还原（个人理解）
                 int saveReaderIndex = in.readerIndex();
                 int msgLength = in.readInt();
                 if (in.isReadable(msgLength)) {
